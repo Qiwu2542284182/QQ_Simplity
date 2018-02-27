@@ -10,7 +10,7 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage;
 
 public class CheckActive {
     public static void isActive(final XC_LoadPackage.LoadPackageParam loadPackageParam){
-        if (!loadPackageParam.packageName.equals("qiwu.qq_simplity"))return;
+        if (！loadPackageParam.packageName.equals("qiwu.qq_simplity"))return;
         XposedHelpers.findAndHookMethod("qiwu.qq_simplity.SettingActivity",loadPackageParam.classLoader,"isModuleActive", XC_MethodReplacement.returnConstant(true));
     }
 }
