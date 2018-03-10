@@ -33,7 +33,7 @@ class SettingUtils{
     public static boolean iscleanEnterEffect(){return getPref().getBoolean("AJ",false);}
     public static boolean iscleanSplashAd(){return getPref().getBoolean("AK",false);}
     public static boolean iscleanRedTouth(){return getPref().getBoolean("BA",false);}
-    public static boolean iscleanXiao(){return getPref().getBoolean("BC",false);}
+    public static boolean iscleanPicXiao(){return getPref().getBoolean("BC",false);}
     public static boolean iscleanMedal(){return getPref().getBoolean("BD",false);}
     public static boolean iscleanCeVIP(){return getPref().getBoolean("BE",false);}
     public static boolean iscleanCeMian(){return getPref().getBoolean("BF",false);}
@@ -43,14 +43,17 @@ class SettingUtils{
     public static boolean iscleanQunRemove(){return getPref().getBoolean("BK",false);}
     public static boolean iscleanTimFile(){return getPref().getBoolean("BL",false);}
     public static boolean iscleanBuluo(){return getPref().getBoolean("BM",false);}
-    public static boolean iscleanPicXiao(){return getPref().getBoolean("BN",false);}
+    public static boolean iscleanCeCard(){return getPref().getBoolean("mycard",false);}
+    public static boolean iscleanVideo(){return getPref().getBoolean("myvideo",false);}
+    public static boolean iscleanQzone(){return getPref().getBoolean("Qzone",false);}
+    public static boolean iscleanNearBy(){return getPref().getBoolean("nearby",false);}
     public static boolean iscleanGif(){return getPref().getBoolean("BO",false);}
     public static boolean iscleanRedbag(){return getPref().getBoolean("BP",false);}
     public static boolean iscleanPoke(){return getPref().getBoolean("BQ",false);}
     public static boolean iscleanGreenAd(){return getPref().getBoolean("BR",false);}
     public static boolean isBanFlashPic(){return getPref().getBoolean("ZB",false);}
     public static boolean isBanRevoke(){return getPref().getBoolean("ZC",false);}
-    public static String qqcolor(){return getPref().getString("ZD","000000");}
     public static boolean isOn(){return getPref().getBoolean("CB",false);}
+    public static boolean iscleannow(){return getPref().getBoolean("now",false);}
 
 }

@@ -37,21 +37,21 @@ public class ComponentHook {
             RedTouchId.add(HookById.getDrawableId(c,"shortvideo_redbag_outicon"));
         }
         for (int i=0;i<RedTouchId.size();i++){
-            RemoveImagine.removeDrawable(Integer.parseInt(RedTouchId.get(i).toString()));
+            RemoveImagine.removeDrawable(Integer.parseInt(RedTouchId.get(i).toString()),HookById.getDrawableId(c,"skin_searchbar_button_pressed_theme_version2"));
         }
-        XposedHelpers.findAndHookMethod(ImageView.class, "setImageResource", int.class,new XC_MethodHook() {
-            @Override
-            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                super.afterHookedMethod(param);
-                int i=(int)param.args[0];
-                if (i==HookById.getDrawableId(c, "skin_tips_dot_small")){
-                    param.args[0]=null;
-                }
-            }
-        });
     }
 
-
+    public static void cleanLeba(Class c){
+        if (SettingUtils.iscleanQzone()){
+            RemoveImagine.remove(HookById.getId(c,"qzone_feed_entry_sub_iv"));
+        }
+        if (SettingUtils.iscleanNearBy()){
+            RemoveImagine.remove(HookById.getId(c,"nearby_people_entry_sub_iv"));
+        }
+        if (SettingUtils.iscleanBuluo()){
+            RemoveImagine.remove(HookById.getId(c,"xingqu_buluo_entry_sub_iv"));
+        }
+    }
     public static void cleanCe(Class c) {
         int myvip=HookById.getLayoutId(c,"myvip");
         int cuKingCard=HookById.getId(c,"cuKingCard");
@@ -60,6 +60,12 @@ public class ComponentHook {
         }
         if (SettingUtils.iscleanCeMian()){
             RemoveImagine.remove(cuKingCard);
+        }
+        if (SettingUtils.iscleanCeCard()){
+            RemoveImagine.remove(HookById.getId(c,"mycards"));
+        }
+        if (SettingUtils.iscleanVideo()){
+            RemoveImagine.remove(HookById.getId(c,"myvideos"));
         }
 
     }
@@ -96,22 +102,7 @@ public class ComponentHook {
         }
 
     }
-    public static void cleanXiao(ClassLoader classLoader){
-        Class<?>hookclass=null;
-        try{
-            hookclass=classLoader.loadClass("com.tencent.mobileqq.activity.aio.item.PicItemBuilder");
-            XposedHelpers.findAndHookMethod(hookclass, "a", "com.tencent.mobileqq.activity.aio.BaseChatItemLayout", "com.tencent.mobileqq.data.MessageForPic", "com.tencent.mobileqq.activity.aio.OnLongClickAndTouchListener", "com.tencent.mobileqq.activity.aio.item.PicItemBuilder$Holder", boolean.class, new XC_MethodReplacement() {
-                @Override
-                protected Object replaceHookedMethod(MethodHookParam methodHookParam) throws Throwable {
-                    return null;
-                }
-            });
-        }catch (Exception e){
-            XposedBridge.log("载入错误");
-            XposedBridge.log(e);
-        }
 
-    }
     public static void cleanBanner(Class c){
         int close=HookById.getId(c,"close");
         int AdView=HookById.getId(c,"adview1");
@@ -127,37 +118,14 @@ public class ComponentHook {
         int Id=HookById.getId(c,"timtips");
         RemoveImagine.remove(Id);
     }
-    public static void cleanQunRemove(ClassLoader classLoader){
-        Class<?>hookclass=null;
-        try{
-            hookclass=classLoader.loadClass("com.tencent.mobileqq.activity.ChatActivityUtils");
-            XposedHelpers.findAndHookMethod(hookclass, "a","android.content.Context",String.class,"android.view.View$OnClickListener","android.view.View$OnClickListener",new  XC_MethodHook() {
-                @Override
-                protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                    super.afterHookedMethod(param);
-                    param.setResult(null);
-                }
-            });
-        }catch (Exception e){
-            XposedBridge.log("载入错误");
-            XposedBridge.log(e);
-        }
-
+    public static void cleanQunRemove(Class c){
+        RemoveImagine.remove(HookById.getId(c,"chat_top_bar"));
+        RemoveImagine.remove(HookById.getId(c,"chat_top_bar_confirm_btn"));
+        RemoveImagine.remove(HookById.getId(c,"chat_top_bar_text"));
+        RemoveImagine.remove(HookById.getId(c,"chat_top_bar_btn"));
     }
-    public static void cleanPicXiao(ClassLoader classLoader){
-        Class<?>hookclass=null;
-        try{
-            hookclass=classLoader.loadClass("com.tencent.mobileqq.activity.aio.item.PicItemBuilder");
-            XposedHelpers.findAndHookMethod(hookclass, "a", "com.tencent.mobileqq.app.QQAppInterface", Context.class, View.class, "com.tencent.mobileqq.data.ChatMessage", "com.tencent.mobileqq.activity.aio.SessionInfo", boolean.class, new XC_MethodHook() {
-                @Override
-                protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                    super.beforeHookedMethod(param);
-                    param.args[5]=false;
-                }
-            });
-        }catch (Exception e){
-            XposedBridge.log(e);
-        }
+    public static void cleanPicXiao(Class c){
+        RemoveImagine.remove(HookById.getId(c,"pic_light_emoj"));
     }
     public static void cleanGreenAd(Class c){
         int[]AdId={HookById.getId(c,"shuoshuo_ad_upload_quality"),HookById.getId(c,"quality_hd_ad"),HookById.getId(c,"quality_ad")};

@@ -146,22 +146,6 @@ public class FunctionHook {
         }
 
     }
-    public static void cleanBuluo(ClassLoader classLoader){
-        Class<?>hookclass=null;
-        try{
-            hookclass=classLoader.loadClass("com.tencent.mobileqq.activity.Leba");
-            XposedHelpers.findAndHookMethod(hookclass, "B",  new XC_MethodReplacement() {
-                @Override
-                protected Object replaceHookedMethod(MethodHookParam methodHookParam) throws Throwable {
-                    return null;
-                }
-            });
-        }catch (Exception e){
-            XposedBridge.log("载入错误");
-            XposedBridge.log(e);
-        }
-
-    }
     public static void cleanEnterEffect(ClassLoader classLoader){
         Class<?>hookclass=null;
         try{
@@ -218,5 +202,26 @@ public class FunctionHook {
             XposedBridge.log(e);
         }
     }
+    public static void cleanNow(ClassLoader classLoader) {
+        try{
+            Class<?>hookclass=classLoader.loadClass("com.tencent.mobileqq.now.enter.ConversationNowController");
+            XposedHelpers.findAndHookMethod(hookclass, "a", String.class, new XC_MethodReplacement() {
+                @Override
+                protected Object replaceHookedMethod(MethodHookParam methodHookParam) throws Throwable {
+                    return null;
+                }
+            });
+            XposedHelpers.findAndHookMethod(hookclass, "e", new XC_MethodReplacement() {
+                @Override
+                protected Object replaceHookedMethod(MethodHookParam methodHookParam) throws Throwable {
+                    return null;
+                }
+            });
+        }catch (Exception e){
+            XposedBridge.log(e);
+        }
+
+    }
+
 }
 

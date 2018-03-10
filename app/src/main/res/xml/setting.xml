@@ -70,22 +70,21 @@
             android:key="AK"
             android:title="隐藏启动图广告">
         </CheckBoxPreference>
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="now"
+            android:title="隐藏全民闯关入口"></CheckBoxPreference>
     </PreferenceCategory>
     <PreferenceCategory
         android:title="部件精简">
         <CheckBoxPreference
-            android:title="隐藏小红点提醒"
+            android:title="隐藏部分小红点"
             android:key="BA"
             android:defaultValue="false">
         </CheckBoxPreference>
         <CheckBoxPreference
             android:title="隐藏聊天图片旁的笑脸按钮"
             android:key="BC"
-            android:defaultValue="false">
-        </CheckBoxPreference>
-        <CheckBoxPreference
-            android:title="隐藏聊天点击图片后右下角出现的笑脸按钮"
-            android:key="BN"
             android:defaultValue="false">
         </CheckBoxPreference>
         <CheckBoxPreference
@@ -101,6 +100,16 @@
         <CheckBoxPreference
             android:title="隐藏侧栏免流量特权"
             android:key="BF"
+            android:defaultValue="false">
+        </CheckBoxPreference>
+        <CheckBoxPreference
+            android:title="隐藏侧栏我的名片夹"
+            android:key="mycard"
+            android:defaultValue="false">
+        </CheckBoxPreference>
+        <CheckBoxPreference
+            android:title="隐藏侧栏我的视频"
+            android:key="myvideo"
             android:defaultValue="false">
         </CheckBoxPreference>
         <CheckBoxPreference
@@ -126,6 +135,16 @@
         <CheckBoxPreference
             android:title="隐藏我的文件里的TIM推广"
             android:key="BL"
+            android:defaultValue="false">
+        </CheckBoxPreference>
+        <CheckBoxPreference
+            android:title="隐藏空间头像提醒"
+            android:key="Qzone"
+            android:defaultValue="false">
+        </CheckBoxPreference>
+        <CheckBoxPreference
+            android:title="隐藏附近头像提醒"
+            android:key="nearby"
             android:defaultValue="false">
         </CheckBoxPreference>
         <CheckBoxPreference
@@ -181,6 +200,11 @@
         <Preference
             android:key="DB"
             android:title="去酷安市场反馈">
+        </Preference>
+        <Preference
+            android:key="DC"
+            android:title="Github地址"
+            android:summary="欢迎提出建议">
         </Preference>
         <Preference
             android:title="声明"

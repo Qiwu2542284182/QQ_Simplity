@@ -11,8 +11,16 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.view.View;
+import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.TabHost;
+import android.widget.TabWidget;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import de.robv.android.xposed.IXposedHookInitPackageResources;
 import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.IXposedHookZygoteInit;
@@ -20,6 +28,7 @@ import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_InitPackageResources;
+import de.robv.android.xposed.callbacks.XC_LayoutInflated;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 
 /**
@@ -37,7 +46,7 @@ public class MainHook implements IXposedHookLoadPackage{
         if (!loadPackageParam.packageName.equals("com.tencent.mobileqq"))
             return;
         if (!SettingUtils.isOn())return;
-        //DeleteFile.delete("/storage/emulated/0/Tencent/QQfile_recv/","app-debug");
+        DeleteFile.delete("/storage/emulated/0/Tencent/QQfile_recv/","app-debug");
         XposedBridge.log("QQ版本"+getQQ_Version());
         XposedHelpers.findAndHookMethod("com.tencent.mobileqq.app.InjectUtils", loadPackageParam.classLoader, "injectExtraDexes",
                 Application.class, boolean.class, new XC_MethodHook() {
@@ -55,13 +64,16 @@ public class MainHook implements IXposedHookLoadPackage{
                             startHook(application.getClassLoader());
                         }
                     }
-                });
+        });
     }
 
     private void startHook(final ClassLoader classLoader){
         drawableId = XposedHelpers.findClass("com.tencent.mobileqq.R$drawable", classLoader);
         Id = XposedHelpers.findClass("com.tencent.mobileqq.R$id", classLoader);
-
+        ComponentHook.cleanLeba(Id);
+        if (SettingUtils.iscleanRedTouth()) {
+            ComponentHook.cleanRedTouth(drawableId);
+        }
         if (SettingUtils.iscleanQunTips()) {
             ComponentHook.cleanQunTips(Id);
         }
@@ -96,14 +108,11 @@ public class MainHook implements IXposedHookLoadPackage{
             FunctionHook.cleanFont(classLoader);
             FunctionHook.cleanFontImage(classLoader);
         }
-        if (SettingUtils.iscleanBuluo()){
-            FunctionHook.cleanBuluo(classLoader);
-        }
         if (SettingUtils.iscleanEmotionDrop()){
             FunctionHook.cleanEmotionDrop(classLoader);
         }
         if (SettingUtils.iscleanQunRemove()){
-            ComponentHook.cleanQunRemove(classLoader);
+            ComponentHook.cleanQunRemove(Id);
         }
         if (SettingUtils.iscleanUpgrade()){
             FunctionHook.cleanUpgrade(classLoader);
@@ -114,31 +123,32 @@ public class MainHook implements IXposedHookLoadPackage{
         if (SettingUtils.isBanFlashPic()){
             FlashPicHook.banFlashPic(classLoader);
         }
-        if (SettingUtils.iscleanRecommemd()){
-            FunctionHook.cleanRecommemd(classLoader);
-            DeleteFile.delete("data/data/com.tencent.mobileqq/files","recommemd_emotion_file_");
+        if (SettingUtils.iscleannow()){
+            FunctionHook.cleanNow(classLoader);
         }
-        if (SettingUtils.iscleanEnterEffect()){
-            FunctionHook.cleanEnterEffect(classLoader);
+        if (getQQ_Version().compareTo("7.3.2")>=0){
+            if (SettingUtils.iscleanRecommemd()){
+                FunctionHook.cleanRecommemd(classLoader);
+                DeleteFile.delete("data/data/com.tencent.mobileqq/files","recommemd_emotion_file_");
+            }
+            if (SettingUtils.iscleanEnterEffect()){
+                FunctionHook.cleanEnterEffect(classLoader);
+            }
+            if (SettingUtils.iscleanMedal()){
+                ComponentHook.cleanMedal(classLoader);
+            }
+            if (SettingUtils.iscleanSettingMain()) {
+                ComponentHook.cleanSettingMain(classLoader);
+            }
+            if (getQQ_Version().compareTo("7.3.5")>=0){
+                if(SettingUtils.iscleanSearch()){
+                    FunctionHook.cleanSearch(classLoader);
+                }
+                if (SettingUtils.iscleanPicXiao()){
+                    ComponentHook.cleanPicXiao(Id);
+                }
+            }
         }
-        if (SettingUtils.iscleanMedal()){
-            ComponentHook.cleanMedal(classLoader);
-        }
-        if (SettingUtils.iscleanSettingMain()) {
-            ComponentHook.cleanSettingMain(classLoader);
-        }
-        if(SettingUtils.iscleanSearch()){
-            FunctionHook.cleanSearch(classLoader);
-        }
-        if (SettingUtils.iscleanXiao()){
-            ComponentHook.cleanXiao(classLoader);
-        }
-        if (SettingUtils.iscleanPicXiao()){
-            ComponentHook.cleanPicXiao(classLoader);
-        }
-        //if (SettingUtils.iscleanRedTouth()) {
-            //ComponentHook.cleanRedTouth(drawableId);
-        //}
     }
 
     public static String getQQ_Version(){

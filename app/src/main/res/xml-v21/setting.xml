@@ -74,18 +74,13 @@
     <PreferenceCategory
         android:title="部件精简">
         <SwitchPreference
-            android:title="隐藏小红点提醒"
+            android:title="隐藏部分小红点"
             android:key="BA"
             android:defaultValue="false">
         </SwitchPreference>
         <SwitchPreference
             android:title="隐藏聊天图片旁的笑脸按钮"
             android:key="BC"
-            android:defaultValue="false">
-        </SwitchPreference>
-        <SwitchPreference
-            android:title="隐藏聊天点击图片后右下角出现的笑脸按钮"
-            android:key="BN"
             android:defaultValue="false">
         </SwitchPreference>
         <SwitchPreference
@@ -101,6 +96,16 @@
         <SwitchPreference
             android:title="隐藏侧栏免流量特权"
             android:key="BF"
+            android:defaultValue="false">
+        </SwitchPreference>
+        <SwitchPreference
+            android:title="隐藏侧栏我的名片夹"
+            android:key="mycard"
+            android:defaultValue="false">
+        </SwitchPreference>
+        <SwitchPreference
+            android:title="隐藏侧栏我的视频"
+            android:key="myvideo"
             android:defaultValue="false">
         </SwitchPreference>
         <SwitchPreference
@@ -126,6 +131,16 @@
         <SwitchPreference
             android:title="隐藏我的文件里的TIM推广"
             android:key="BL"
+            android:defaultValue="false">
+        </SwitchPreference>
+        <SwitchPreference
+            android:title="隐藏空间头像提醒"
+            android:key="Qzone"
+            android:defaultValue="false">
+        </SwitchPreference>
+        <SwitchPreference
+            android:title="隐藏附近头像提醒"
+            android:key="nearby"
             android:defaultValue="false">
         </SwitchPreference>
         <SwitchPreference
@@ -166,11 +181,6 @@
             android:key="ZC"
             android:defaultValue="false">
         </SwitchPreference>
-        <EditTextPreference
-            android:title="顶栏颜色代码"
-            android:key="ZD"
-            android:summary="颜色代码不需要加上#号">
-        </EditTextPreference>
     </PreferenceCategory>
     <PreferenceCategory
         android:title="关于">
@@ -186,6 +196,11 @@
         <Preference
             android:key="DB"
             android:title="去酷安市场反馈">
+        </Preference>
+        <Preference
+            android:key="DC"
+            android:title="Github地址"
+            android:summary="欢迎提出建议">
         </Preference>
         <Preference
             android:title="声明"

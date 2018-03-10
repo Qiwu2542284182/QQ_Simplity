@@ -3,8 +3,9 @@ package qiwu.qq_simplity;
 import android.os.SystemClock;
 import android.view.MotionEvent;
 import android.view.View;
-
+import java.lang.reflect.Method;
 import de.robv.android.xposed.XC_MethodHook;
+import de.robv.android.xposed.XC_MethodReplacement;
 import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 
@@ -16,11 +17,10 @@ public class FlashPicHook {
     public static void banFlashPic(ClassLoader classLoader){
         try{
             Class<?>clazz=classLoader.loadClass("com.tencent.widget.CountDownProgressBar");
-            XposedHelpers.findAndHookMethod(clazz, "setTotalMills", long.class, int.class, new XC_MethodHook() {
+            XposedHelpers.findAndHookMethod(clazz, "a", new XC_MethodReplacement() {
                 @Override
-                protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                    super.beforeHookedMethod(param);
-                    param.args[0]=-4500;
+                protected Object replaceHookedMethod(MethodHookParam methodHookParam) throws Throwable {
+                    return null;
                 }
             });
         }catch (Exception e){
@@ -35,23 +35,23 @@ public class FlashPicHook {
                     param.args[1]=MotionEvent.obtain(SystemClock.uptimeMillis(),SystemClock.uptimeMillis(),MotionEvent.ACTION_DOWN,0,0,0);
                 }
             });
-            XposedHelpers.findClass("com.tencent.mobileqq.dating.HotChatFlashPicActivity",classLoader);
         }catch (Exception e){
             XposedBridge.log(e);
         }
         try{
-            Class<?>claa=classLoader.loadClass("com.tencent.mobileqq.data.MessageRecord");
-            XposedHelpers.findAndHookMethod(claa, "saveExtInfoToExtStr", String.class, String.class, new XC_MethodHook() {
-                @Override
-                protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                    super.beforeHookedMethod(param);
-                    String a=(String)param.args[0];
-                    String b=(String)param.args[1];
-                    if (a.equals("commen_flash_pic")&&b.equals("true")){
-                        param.args[1]="false";
-                    }
+            final Class<?>claa=classLoader.loadClass("com.tencent.mobileqq.activity.aio.photo.AIOImageProviderService");
+            Method[] methods=claa.getDeclaredMethods();
+            for (Method method:methods){
+                final Class<?>[]name=method.getParameterTypes();
+                if (method.getName().equals("a")&&method.getGenericReturnType().toString().equals("void")&&name.length==1&&name[0].getName().equals("long")){
+                    XposedBridge.hookMethod(method, new XC_MethodReplacement() {
+                        @Override
+                        protected Object replaceHookedMethod(MethodHookParam methodHookParam) throws Throwable {
+                            return null;
+                        }
+                    });
                 }
-            });
+            }
         }catch (Exception e){
             XposedBridge.log(e);
         }
